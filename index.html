@@ -334,21 +334,65 @@
             text-transform: uppercase;
         }
 
-        /* Dev Banner */
-        .dev-banner {
-            background: linear-gradient(90deg, var(--accent-amber), #d4a04a);
-            padding: 0.75rem 2rem;
+        /* Partner Section */
+        .partner-section {
+            background: linear-gradient(135deg, var(--deep-forest) 0%, var(--pine) 100%);
+            padding: 3rem 2rem;
             text-align: center;
         }
-        .dev-banner p {
-            color: white;
-            font-weight: 600;
-            font-size: 0.88rem;
+        .partner-section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
         }
-        .dev-banner a {
-            color: white;
-            text-decoration: underline;
-            margin-left: 0.5rem;
+        .partner-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-amber);
+            margin-bottom: 0.8rem;
+        }
+        .partner-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            color: var(--snow);
+            margin-bottom: 2rem;
+        }
+        .partner-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem 4rem;
+        }
+        .partner-logo {
+            max-height: 50px;
+            max-width: 180px;
+            width: auto;
+            opacity: 0.9;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+        .partner-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        /* For color logos - add class "partner-logo-color" */
+        .partner-logo-color {
+            filter: none;
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .partner-section {
+                padding: 2rem 1.5rem;
+            }
+            .partner-logos {
+                gap: 1.5rem 2rem;
+            }
+            .partner-logo {
+                max-height: 40px;
+                max-width: 140px;
+            }
         }
 
         /* Sections */
@@ -1054,12 +1098,17 @@
         </div>
     </section>
 
-    <!-- Dev Banner -->
-    <div class="dev-banner">
-        <p>🛠️ NoLuck er under aktiv utvikling – vi tar gjerne imot innspill og funksjonsønsker!
-            <a href="#kontakt">Del dine tanker →</a>
-        </p>
-    </div>
+    <!-- Partners Section -->
+    <section class="partner-section">
+        <div class="partner-section-inner">
+            <span class="partner-label">Samarbeidspartnere</span>
+            <h2 class="partner-title">Vi utvikler NoLuck sammen med fremtidsrettede aktører</h2>
+            <div class="partner-logos">
+                <img src="innovasjon-norge-logo.png" alt="Innovasjon Norge" class="partner-logo partner-logo-color">
+                <img src="usn-logo.svg" alt="Universitetet i Sørøst-Norge" class="partner-logo">
+            </div>
+        </div>
+    </section>
 
     <!-- Gallery Strip -->
     <div class="gallery-strip">
