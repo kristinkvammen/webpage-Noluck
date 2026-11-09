@@ -164,6 +164,57 @@
         }
         nav.scrolled .menu-toggle span { background: var(--deep-forest); }
 
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-forest);
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-menu-overlay.open {
+            display: flex;
+        }
+        .mobile-menu-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--snow);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            line-height: 1;
+        }
+        .mobile-menu-links {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .mobile-menu-links a {
+            color: var(--snow);
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 1rem;
+        }
+        .mobile-menu-links .nav-contact-btn {
+            background: var(--accent-amber);
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
         /* Hero */
         .hero {
             position: relative;
@@ -1019,14 +1070,18 @@
                 display: none;
                 position: fixed;
                 top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(26, 46, 31, 0.97);
+                width: 100vw;
+                height: 100vh;
+                background: #1a2e1f;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 gap: 2rem;
+                z-index: 999;
             }
-            .nav-links.open { display: flex; }
-            .nav-links a { font-size: 1.2rem; color: var(--snow) !important; }
+            .nav-links.open { display: flex !important; }
+            .menu-toggle { z-index: 1000; position: relative; }
+            .nav-links a { font-size: 1.3rem; color: var(--snow) !important; padding: 0.5rem 1rem; }
             .menu-toggle { display: flex; }
             .value-grid, .app-preview-grid, .team-grid, .contact-grid, .status-content, .philosophy-grid {
                 grid-template-columns: 1fr;
@@ -1051,6 +1106,17 @@
         <button class="menu-toggle" id="menuToggle" aria-label="Meny">
             <span></span><span></span><span></span>
         </button>
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Lukk meny">✕</button>
+            <ul class="mobile-menu-links">
+                <li><a href="#losningen">Løsningen</a></li>
+                <li><a href="#tjenester">Tjenester</a></li>
+                <li><a href="#for-hvem">For hvem</a></li>
+                <li><a href="#om-oss">Om oss</a></li>
+                <li><a href="https://app.noluck.no" class="nav-login-btn">Logg inn</a></li>
+                <li><a href="#kontakt" class="nav-contact-btn">Kontakt</a></li>
+            </ul>
+        </div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#losningen">Løsningen</a></li>
             <li><a href="#tjenester">Tjenester</a></li>
@@ -1532,10 +1598,24 @@
 
         // Mobile menu
         const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenuOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+
+        mobileMenuOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+            });
         });
 
         // Reveal on scroll
